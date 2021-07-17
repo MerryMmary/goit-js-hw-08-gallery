@@ -13,7 +13,7 @@ const refs = {
 console.log('refs', refs);
 
 
-// ====== 1 ======  creating dynamic markUp from {galleryItems}
+// ====== 1 ======  creating dynamic markUp from {galleryItems} ======
 
 const galleryItemsMarkup = galleryItems.map(({ preview, original, description }) => {
     return `<li class="gallery__item">
@@ -34,7 +34,9 @@ const galleryItemsMarkup = galleryItems.map(({ preview, original, description })
 
 refs.galleryList.insertAdjacentHTML('beforeend', galleryItemsMarkup);
 
-// ====== 2 ======  creating dynamic markUp from {galleryItems}
+
+// ====== 2 ======  original image preview ======
+
 refs.galleryList.addEventListener('click', viewOriginalImageOnClick)
 
 function viewOriginalImageOnClick(evt) {
@@ -48,17 +50,22 @@ function viewOriginalImageOnClick(evt) {
     } else {
         console.log('Its IMAGE!!!');
         refs.lightBox.classList.add('is-open');
-        const lightboxImage = refs.lightBox.querySelector('.lightbox__image'); 
 
+        const lightboxImage = refs.lightBox.querySelector('.lightbox__image'); 
         lightboxImage.src = target.dataset.source;
         lightboxImage.alt = target.alt;
         //console.log('lightboxImage.src', lightboxImage.src); // current large image 
     }
 }
 
-// ====== 3 ======  close btn
+// ====== 3 ======  close btn ======
 refs.lightBoxCloseBtn.addEventListener('click', closeLightbox);
+
 function closeLightbox(evt) {
-    console.log('button', evt.target);
-    refs.lightBox.classList.remove('is-open');
-} 
+    console.log('evt.target', evt.target);
+    refs.lightBox.classList.toggle('is-open');
+    const lightboxImage = refs.lightBox.querySelector('.lightbox__image'); 
+    lightboxImage.src = '';
+    lightboxImage.alt = '';
+}
+
